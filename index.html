@@ -13,17 +13,40 @@
 </header>
 
 <nav>
-  <button>Home</button>
-  <button>Search</button>
-  <button>Post</button>
-  <button>Chat</button>
-  <button>Profile</button>
+  <button onclick="showPage('homePage')">Home</button>
+  <button onclick="showPage('searchPage')">Search</button>
+  <button onclick="showPage('postPage')">Post</button>
+  <button onclick="showPage('chatPage')">Chat</button>
+  <button onclick="showPage('profilePage')">Profile</button>
 </nav>
 
 <main id="app">
 
-<h2>Welcome to Vocbit</h2>
-<p>This will become our social media app.</p>
+<section id="homePage">
+<h2>Home Feed</h2>
+<p>Posts from people you follow will appear here.</p>
+</section>
+
+<section id="searchPage" style="display:none;">
+<h2>Search</h2>
+<input type="text" placeholder="Search users...">
+<p>User results will appear here.</p>
+</section>
+
+<section id="postPage" style="display:none;">
+<h2>Create Post</h2>
+<p>Upload photos or reels here.</p>
+</section>
+
+<section id="chatPage" style="display:none;">
+<h2>Chats</h2>
+<p>Your inbox messages will appear here.</p>
+</section>
+
+<section id="profilePage" style="display:none;">
+<h2>Your Profile</h2>
+<p>Name, bio, followers, posts will appear here.</p>
+</section>
 
 </main>
 

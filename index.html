@@ -44,11 +44,15 @@
 </section>
   
 <section id="searchPage" style="display:none;">
-<h2>Search</h2>
-<input type="text" placeholder="Search users...">
-<p>User results will appear here.</p>
-</section>
 
+<h2>Search Users</h2>
+
+<input type="text" id="searchInput" placeholder="Search username..." onkeyup="searchUsers()">
+
+<div id="searchResults"></div>
+
+</section>
+  
 <section id="postPage" style="display:none;">
 <h2>Create Post</h2>
 <p>Upload photos or reels here.</p>

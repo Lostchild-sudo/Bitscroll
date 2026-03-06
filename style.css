@@ -102,3 +102,27 @@ margin-top:10px;
 .profile-posts img{
 width:100%;
 }
+
+#searchInput{
+width:100%;
+padding:10px;
+margin-top:10px;
+border:1px solid #ccc;
+border-radius:5px;
+}
+
+.user-result{
+display:flex;
+align-items:center;
+gap:10px;
+background:white;
+padding:10px;
+margin-top:10px;
+border-radius:8px;
+}
+
+.user-result img{
+width:40px;
+height:40px;
+border-radius:50%;
+}

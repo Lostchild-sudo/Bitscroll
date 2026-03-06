@@ -52,3 +52,41 @@ results.innerHTML += `
 });
 
 }
+
+function uploadPost(){
+
+let fileInput = document.getElementById("postImage");
+
+if(fileInput.files.length === 0){
+alert("Select an image first");
+return;
+}
+
+let file = fileInput.files[0];
+
+let imageURL = URL.createObjectURL(file);
+
+let homePage = document.getElementById("homePage");
+
+homePage.innerHTML += `
+
+<div class="post">
+
+<div class="post-header">
+<img src="https://via.placeholder.com/40" class="dp">
+<span class="username">you</span>
+</div>
+
+<img src="${imageURL}" class="post-img">
+
+<div class="post-actions">
+<button onclick="likePost(this)">❤️ Like</button>
+</div>
+
+</div>
+
+`;
+
+alert("Post uploaded!");
+
+}

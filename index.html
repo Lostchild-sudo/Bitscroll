@@ -125,6 +125,28 @@
 </section>
 </main>
 
+  <!-- Firebase setup -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBxrbh42fJ_JDGFrErSRA2AuFB56IdnLzw",
+  authDomain: "bitscroll-34890.firebaseapp.com",
+  projectId: "bitscroll-34890",
+  storageBucket: "bitscroll-34890.appspot.com",
+  messagingSenderId: "1074276995159",
+  appId: "1:1074276995159:web:dcaabdea6f8662c253d312"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// Make db accessible in script.js
+window.db = db;
+</script>
+
 <script src="script.js"></script>
 
 </body>

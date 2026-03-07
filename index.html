@@ -1,110 +1,152 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-  <title>Bitscroll</title>
-  <link rel="stylesheet" href="style.css">
+<title>Bitscroll</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="style.css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>
 
-<header>
-  <h1>Bitscroll</h1>
-</header>
+<!-- HOME PAGE -->
 
-<nav>
-  <button onclick="showPage('homePage')">Home</button>
-  <button onclick="showPage('searchPage')">Search</button>
-  <button onclick="showPage('postPage')">Post</button>
-  <button onclick="showPage('chatPage')">Chat</button>
-  <button onclick="showPage('profilePage')">Profile</button>
-</nav>
+<main>
 
-<main id="app">
+<section id="homePage">
 
-  <section id="homePage">
-    <h2>Home Feed</h2>
-    <!-- Posts will load here dynamically -->
-  </section>
+<h2>Bitscroll Feed</h2>
 
-  <section id="searchPage" style="display:none;">
-    <h2>Search Users</h2>
-    <input type="text" id="searchInput" placeholder="Search username..." onkeyup="searchUsers()">
-    <div id="searchResults"></div>
-  </section>
+<div id="feedPosts"></div>
 
-  <section id="postPage" style="display:none;">
-    <h2>Create Post</h2>
-    <input type="file" id="postImage">
-    <br><br>
-    <button onclick="uploadPost()">Upload</button>
-  </section>
+</section>
 
-  <section id="chatPage" style="display:none;">
-    <h2>Chats</h2>
-    <p>Your inbox messages will appear here.</p>
-  </section>
 
-  <section id="profilePage" style="display:none;">
-    <div class="profile-header">
-      <img src="https://via.placeholder.com/80" class="profile-dp">
-      <div class="profile-info">
-        <h3>Jaspreet Singh</h3>
-        <p>@jaspreet</p>
-        <p>This is my bio</p>
-        <a href="#">mywebsite.com</a>
-      </div>
-    </div>
+<!-- SEARCH PAGE -->
 
-    <div class="profile-stats">
-      <div>
-        <h4>10</h4>
-        <p>Posts</p>
-      </div>
-      <div>
-        <h4>200</h4>
-        <p>Followers</p>
-      </div>
-      <div>
-        <h4>180</h4>
-        <p>Following</p>
-      </div>
-    </div>
+<section id="searchPage" style="display:none">
 
-    <div class="profile-buttons">
-      <button>Edit Profile</button>
-      <button>Menu</button>
-    </div>
+<h2>Search</h2>
 
-    <h3>Posts</h3>
-    <div class="profile-posts">
-      <img src="https://via.placeholder.com/120">
-      <img src="https://via.placeholder.com/120">
-      <img src="https://via.placeholder.com/120">
-      <img src="https://via.placeholder.com/120">
-    </div>
-  </section>
+<input type="text" placeholder="Search users" id="searchInput" onkeyup="searchUsers()">
+
+<div id="searchResults"></div>
+
+</section>
+
+
+<!-- POST PAGE -->
+
+<section id="postPage" style="display:none">
+
+<h2>Create Post</h2>
+
+<input type="file" id="postImage">
+
+<button onclick="uploadPost()">Upload</button>
+
+</section>
+
+
+<!-- CHAT PAGE -->
+
+<section id="chatPage" style="display:none">
+
+<h2>Chats</h2>
+
+<p>No messages yet.</p>
+
+</section>
+
+
+<!-- PROFILE PAGE -->
+
+<section id="profilePage" style="display:none">
+
+<div class="profile-top">
+
+<img src="https://via.placeholder.com/80" class="profile-pic">
+
+<div class="profile-right">
+
+<h2 class="username">Lostchild-sudo</h2>
+
+<div class="profile-stats">
+
+<div>
+<b id="postCount">0</b>
+<span>Posts</span>
+</div>
+
+<div>
+<b>0</b>
+<span>Followers</span>
+</div>
+
+<div>
+<b>0</b>
+<span>Following</span>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="profile-info">
+
+<b>Lost Child</b>
+
+<p>Explorer of tech ⚡</p>
+
+<a href="#">bitscroll.app</a>
+
+</div>
+
+
+<div class="profile-buttons">
+
+<button onclick="editProfile()">Edit Profile</button>
+<button onclick="shareProfile()">Share Profile</button>
+
+</div>
+
+
+<div class="profile-tabs">
+
+<i class="fa-solid fa-table-cells"></i>
+<i class="fa-solid fa-video"></i>
+<i class="fa-regular fa-bookmark"></i>
+
+</div>
+
+
+<div id="profilePosts" class="post-grid"></div>
+
+</section>
+
 </main>
 
-<!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
 
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyBxrbh42fJ_JDGFrErSRA2AuFB56IdnLzw",
-    authDomain: "bitscroll-34890.firebaseapp.com",
-    projectId: "bitscroll-34890",
-    storageBucket: "bitscroll-34890.appspot.com",
-    messagingSenderId: "1074276995159",
-    appId: "1:1074276995159:web:dcaabdea6f8662c253d312"
-  };
+<!-- BOTTOM NAVIGATION -->
 
-  // Initialize Firebase
-  const app = firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
-  window.db = db;
-</script>
+<nav class="bottom-nav">
+
+<i class="fa-solid fa-house" onclick="showPage('homePage')"></i>
+
+<i class="fa-solid fa-magnifying-glass" onclick="showPage('searchPage')"></i>
+
+<i class="fa-solid fa-plus" onclick="showPage('postPage')"></i>
+
+<i class="fa-solid fa-comment" onclick="showPage('chatPage')"></i>
+
+<i class="fa-solid fa-user" onclick="showPage('profilePage')"></i>
+
+</nav>
 
 <script src="script.js"></script>
 

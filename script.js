@@ -162,6 +162,16 @@ alert(error.message);
 
 }
 
+function logout(){
+
+firebase.auth().signOut().then(()=>{
+
+alert("Logged out");
+
+});
+
+}
+
 firebase.auth().onAuthStateChanged(function(user){
 
 if(user){

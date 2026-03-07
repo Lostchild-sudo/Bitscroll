@@ -22,110 +22,71 @@
 
 <main id="app">
 
-<section id="homePage">
+  <section id="homePage">
+    <h2>Home Feed</h2>
+    <!-- Posts will load here dynamically -->
+  </section>
 
-<h2>Home Feed</h2>
+  <section id="searchPage" style="display:none;">
+    <h2>Search Users</h2>
+    <input type="text" id="searchInput" placeholder="Search username..." onkeyup="searchUsers()">
+    <div id="searchResults"></div>
+  </section>
 
-<div class="post">
+  <section id="postPage" style="display:none;">
+    <h2>Create Post</h2>
+    <input type="file" id="postImage">
+    <br><br>
+    <button onclick="uploadPost()">Upload</button>
+  </section>
 
-<div class="post-header">
-<img src="https://via.placeholder.com/40" class="dp">
-<span class="username">user_one</span>
-</div>
+  <section id="chatPage" style="display:none;">
+    <h2>Chats</h2>
+    <p>Your inbox messages will appear here.</p>
+  </section>
 
-<img src="https://via.placeholder.com/400" class="post-img">
+  <section id="profilePage" style="display:none;">
+    <div class="profile-header">
+      <img src="https://via.placeholder.com/80" class="profile-dp">
+      <div class="profile-info">
+        <h3>Jaspreet Singh</h3>
+        <p>@jaspreet</p>
+        <p>This is my bio</p>
+        <a href="#">mywebsite.com</a>
+      </div>
+    </div>
 
-<div class="post-actions">
-<button onclick="likePost(this)">❤️ Like</button>
-</div>
+    <div class="profile-stats">
+      <div>
+        <h4>10</h4>
+        <p>Posts</p>
+      </div>
+      <div>
+        <h4>200</h4>
+        <p>Followers</p>
+      </div>
+      <div>
+        <h4>180</h4>
+        <p>Following</p>
+      </div>
+    </div>
 
-</div>
+    <div class="profile-buttons">
+      <button>Edit Profile</button>
+      <button>Menu</button>
+    </div>
 
-</section>
-  
-<section id="searchPage" style="display:none;">
-
-<h2>Search Users</h2>
-
-<input type="text" id="searchInput" placeholder="Search username..." onkeyup="searchUsers()">
-
-<div id="searchResults"></div>
-
-</section>
-  
-<section id="postPage" style="display:none;">
-
-<h2>Create Post</h2>
-
-<input type="file" id="postImage">
-
-<br><br>
-
-<button onclick="uploadPost()">Upload</button>
-
-</section>
-
-<section id="chatPage" style="display:none;">
-<h2>Chats</h2>
-<p>Your inbox messages will appear here.</p>
-</section>
-
-<section id="profilePage" style="display:none;">
-
-<div class="profile-header">
-
-<img src="https://via.placeholder.com/80" class="profile-dp">
-
-<div class="profile-info">
-<h3>Jaspreet Singh</h3>
-<p>@th_lostchild</p>
-<p>This is my bio</p>
-<a href="#">mywebsite.com</a>
-</div>
-
-</div>
-
-<div class="profile-stats">
-
-<div>
-<h4>0</h4>
-<p>Posts</p>
-</div>
-
-<div>
-<h4>0</h4>
-<p>Followers</p>
-</div>
-
-<div>
-<h4>0</h4>
-<p>Following</p>
-</div>
-
-</div>
-
-<div class="profile-buttons">
-
-<button>Edit Profile</button>
-<button>Menu</button>
-
-</div>
-
-<h3>Posts</h3>
-
-<div class="profile-posts">
-
-<img src="https://via.placeholder.com/120">
-<img src="https://via.placeholder.com/120">
-<img src="https://via.placeholder.com/120">
-<img src="https://via.placeholder.com/120">
-
-</div>
-
-</section>
+    <h3>Posts</h3>
+    <div class="profile-posts">
+      <img src="https://via.placeholder.com/120">
+      <img src="https://via.placeholder.com/120">
+      <img src="https://via.placeholder.com/120">
+      <img src="https://via.placeholder.com/120">
+    </div>
+  </section>
 </main>
 
-<!-- Firebase SDKs -->
+<!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
 
@@ -142,13 +103,10 @@
   // Initialize Firebase
   const app = firebase.initializeApp(firebaseConfig);
   const db = firebase.firestore();
-
-  // Make db global
   window.db = db;
 </script>
 
 <script src="script.js"></script>
 
 </body>
-
 </html>

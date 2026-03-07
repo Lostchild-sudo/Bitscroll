@@ -161,3 +161,21 @@ alert(error.message);
 });
 
 }
+
+firebase.auth().onAuthStateChanged(function(user){
+
+if(user){
+
+// user already logged in
+document.getElementById("loginPage").style.display="none";
+document.querySelector("main").style.display="block";
+
+}else{
+
+// user not logged in
+document.getElementById("loginPage").style.display="flex";
+document.querySelector("main").style.display="none";
+
+}
+
+});

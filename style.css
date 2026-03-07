@@ -1,128 +1,57 @@
-body{
-font-family: Arial;
-margin:0;
-background:#f2f2f2;
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
-header{
-background:black;
-color:white;
-text-align:center;
-padding:10px;
+header {
+  text-align: center;
+  background: #1e90ff;
+  color: white;
+  padding: 10px 0;
 }
 
-nav{
-display:flex;
-justify-content:space-around;
-background:white;
-padding:10px;
-border-bottom:1px solid #ccc;
+nav {
+  display: flex;
+  justify-content: space-around;
+  background: #f0f0f0;
+  padding: 10px 0;
 }
 
-nav button{
-background:none;
-border:none;
-font-size:16px;
+nav button {
+  padding: 8px 16px;
+  font-size: 14px;
 }
 
-main{
-padding:20px;
+main {
+  padding: 10px;
 }
 
-.post{
-background:white;
-margin-top:20px;
-padding:10px;
-border-radius:10px;
+.post, .user-result {
+  border: 1px solid #ddd;
+  margin: 10px 0;
+  padding: 10px;
 }
 
-.post-header{
-display:flex;
-align-items:center;
-gap:10px;
-margin-bottom:10px;
+.post-img {
+  width: 100%;
+  max-width: 400px;
+  margin-top: 5px;
 }
 
-.dp{
-width:40px;
-height:40px;
-border-radius:50%;
+.profile-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
-.post-img{
-width:100%;
-border-radius:10px;
+.profile-dp {
+  border-radius: 50%;
+  margin-right: 10px;
 }
 
-.post-actions{
-margin-top:10px;
-}
-
-.profile-header{
-display:flex;
-gap:15px;
-align-items:center;
-}
-
-.profile-dp{
-width:80px;
-height:80px;
-border-radius:50%;
-}
-
-.profile-info p{
-margin:2px 0;
-}
-
-.profile-stats{
-display:flex;
-justify-content:space-around;
-margin-top:20px;
-text-align:center;
-}
-
-.profile-buttons{
-display:flex;
-gap:10px;
-margin-top:10px;
-}
-
-.profile-buttons button{
-flex:1;
-padding:8px;
-}
-
-.profile-posts{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:5px;
-margin-top:10px;
-}
-
-.profile-posts img{
-width:100%;
-}
-
-#searchInput{
-width:100%;
-padding:10px;
-margin-top:10px;
-border:1px solid #ccc;
-border-radius:5px;
-}
-
-.user-result{
-display:flex;
-align-items:center;
-gap:10px;
-background:white;
-padding:10px;
-margin-top:10px;
-border-radius:8px;
-}
-
-.user-result img{
-width:40px;
-height:40px;
-border-radius:50%;
+.profile-posts img {
+  width: 120px;
+  height: 120px;
+  margin: 5px;
 }

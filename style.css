@@ -108,3 +108,26 @@ width:100%;
 padding:10px;
 margin-top:10px;
 }
+
+#loginPage{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+gap:10px;
+}
+
+#loginPage input{
+width:250px;
+padding:10px;
+}
+
+#loginPage button{
+width:270px;
+padding:10px;
+}
+
+#loginPage h2{
+margin-bottom:20px;
+}

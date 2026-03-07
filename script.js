@@ -79,18 +79,31 @@ alert("Error uploading post");
 }
 
 
-function editProfile(){
+async function editProfile(){
 
 let newUsername = prompt("Enter your username:");
 let newName = prompt("Enter your name:");
 
-if(newUsername){
-document.getElementById("profileUsername").innerText = newUsername;
+let user = firebase.auth().currentUser;
+
+if(!user){
+alert("User not logged in");
+return;
 }
 
-if(newName){
-document.getElementById("profileName").innerText = newName;
-}
+let uid = user.uid;
+
+await db.collection("users").doc(uid).set({
+
+username: newUsername || "username",
+name: newName || "name"
+
+});
+
+document.getElementById("profileUsername").innerText = newUsername || "username";
+document.getElementById("profileName").innerText = newName || "name";
+
+alert("Profile saved");
 
 }
 

@@ -212,3 +212,26 @@ document.querySelector("main").style.display="none";
 }
 
 });
+
+function loadProfile(){
+
+let user = firebase.auth().currentUser;
+
+if(!user) return;
+
+let uid = user.uid;
+
+db.collection("users").doc(uid).get().then((doc)=>{
+
+if(doc.exists){
+
+let data = doc.data();
+
+document.getElementById("profileUsername").innerText = data.username || "username";
+document.getElementById("profileName").innerText = data.name || "name";
+
+}
+
+});
+
+}

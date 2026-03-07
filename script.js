@@ -125,3 +125,39 @@ profile.innerHTML += `
 }
 
 loadPosts();
+
+function signup(){
+
+let email=document.getElementById("email").value;
+let password=document.getElementById("password").value;
+
+firebase.auth().createUserWithEmailAndPassword(email,password)
+
+.then(()=>{
+alert("Account created");
+})
+
+.catch((error)=>{
+alert(error.message);
+});
+
+}
+
+
+function login(){
+
+let email=document.getElementById("email").value;
+let password=document.getElementById("password").value;
+
+firebase.auth().signInWithEmailAndPassword(email,password)
+
+.then(()=>{
+document.getElementById("loginPage").style.display="none";
+document.querySelector("main").style.display="block";
+})
+
+.catch((error)=>{
+alert(error.message);
+});
+
+}

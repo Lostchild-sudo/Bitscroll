@@ -59,7 +59,7 @@ try{
 
 await db.collection("posts").add({
 
-username:"Lostchild-sudo",
+username:"username",
 image:imageURL,
 time:Date.now()
 
@@ -80,9 +80,19 @@ alert("Error uploading post");
 
 
 function editProfile(){
-alert("Edit profile feature coming soon");
+
+let newUsername = prompt("Enter your username:");
+let newName = prompt("Enter your name:");
+
+if(newUsername){
+document.getElementById("profileUsername").innerText = newUsername;
 }
 
+if(newName){
+document.getElementById("profileName").innerText = newName;
+}
+
+}
 
 function shareProfile(){
 

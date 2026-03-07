@@ -53,40 +53,66 @@ results.innerHTML += `
 
 }
 
-function uploadPost(){
+async function uploadPost() {
+  let fileInput = document.getElementById("postImage");
 
-let fileInput = document.getElementById("postImage");
+  if (fileInput.files.length === 0) {
+    alert("Select an image first");
+    return;
+  }
 
-if(fileInput.files.length === 0){
-alert("Select an image first");
-return;
+  let file = fileInput.files[0];
+  let imageURL = URL.createObjectURL(file); // temporary preview
+
+  try {
+    // Save post to Firestore
+    await window.db.collection("posts").add({
+      username: "you",
+      image: imageURL,
+      time: Date.now()
+    });
+
+    alert("Post saved to database!");
+    fileInput.value = ""; // clear input
+
+    loadPosts(); // refresh feed
+  } catch (error) {
+    console.log(error);
+    alert("Error saving post");
+  }
 }
 
-let file = fileInput.files[0];
+import { collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-let imageURL = URL.createObjectURL(file);
+async function loadPosts() {
+  const postsContainer = document.getElementById("homePage");
+  postsContainer.innerHTML = "<h2>Home Feed</h2>"; // clear feed and keep header
 
-let homePage = document.getElementById("homePage");
+  try {
+    // Get all posts ordered by newest first
+    const q = query(collection(window.db, "posts"), orderBy("time", "desc"));
+    const querySnapshot = await getDocs(q);
 
-homePage.innerHTML += `
-
-<div class="post">
-
-<div class="post-header">
-<img src="https://via.placeholder.com/40" class="dp">
-<span class="username">you</span>
-</div>
-
-<img src="${imageURL}" class="post-img">
-
-<div class="post-actions">
-<button onclick="likePost(this)">❤️ Like</button>
-</div>
-
-</div>
-
-`;
-
-alert("Post uploaded!");
-
+    querySnapshot.forEach((doc) => {
+      const post = doc.data();
+      postsContainer.innerHTML += `
+        <div class="post">
+          <div class="post-header">
+            <img src="https://via.placeholder.com/40" class="dp">
+            <span class="username">${post.username}</span>
+          </div>
+          <img src="${post.image}" class="post-img">
+          <div class="post-actions">
+            <button onclick="likePost(this)">❤️ Like</button>
+          </div>
+        </div>
+      `;
+    });
+  } catch (error) {
+    console.log(error);
+  }
 }
+
+window.onload = () => {
+  loadPosts();
+};

@@ -42,38 +42,39 @@ results.innerHTML+=`
 }
 
 
-function uploadPost(){
+async function uploadPost(){
 
-let fileInput=document.getElementById("postImage");
+let fileInput = document.getElementById("postImage");
 
-if(fileInput.files.length===0){
+if(fileInput.files.length === 0){
 alert("Select image first");
 return;
 }
 
-let file=fileInput.files[0];
+let file = fileInput.files[0];
 
-let imageURL=URL.createObjectURL(file);
+let imageURL = URL.createObjectURL(file);
 
-document.getElementById("feedPosts").innerHTML+=`
+try{
 
-<div>
-<img src="${imageURL}" style="width:100%">
-</div>
+await db.collection("posts").add({
 
-`;
+username:"Lostchild-sudo",
+image:imageURL,
+time:Date.now()
 
-document.getElementById("profilePosts").innerHTML+=`
+});
 
-<img src="${imageURL}">
+alert("Post saved to database");
 
-`;
+loadPosts();
 
-let count=document.getElementById("postCount");
+}catch(error){
 
-count.innerText=parseInt(count.innerText)+1;
+console.log(error);
+alert("Error uploading post");
 
-alert("Post uploaded");
+}
 
 }
 
@@ -92,3 +93,35 @@ url:window.location.href
 });
 
 }
+
+function loadPosts(){
+
+db.collection("posts").orderBy("time","desc").get().then((snapshot)=>{
+
+let feed = document.getElementById("feedPosts");
+let profile = document.getElementById("profilePosts");
+
+feed.innerHTML="";
+profile.innerHTML="";
+
+snapshot.forEach((doc)=>{
+
+let post = doc.data();
+
+feed.innerHTML += `
+<div>
+<img src="${post.image}" style="width:100%">
+</div>
+`;
+
+profile.innerHTML += `
+<img src="${post.image}">
+`;
+
+});
+
+});
+
+}
+
+loadPosts();

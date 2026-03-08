@@ -1,3 +1,5 @@
+let currentChatUser = null;
+
 function showPage(pageId){
 
 let pages=document.querySelectorAll("main section");
@@ -265,8 +267,11 @@ if(!user) return;
 
 let username = document.getElementById("profileUsername").innerText;
 
-db.collection("messages").add({
+let chatId = [user.uid, currentChatUser].sort().join("_");
 
+db.collection("privateMessages").add({
+
+chatId: chatId,
 username: username,
 text: text,
 time: Date.now()
@@ -327,14 +332,59 @@ let user = doc.data();
 if(user.username.toLowerCase().includes(text)){
 
 results.innerHTML += `
-<div class="search-user">
+<div class="search-user" onclick="openChat('${doc.id}','${user.username}')">
 ${user.username}
 </div>
 `;
-
 }
 
 });
+
+});
+
+}
+
+function openChat(userId, username){
+
+currentChatUser = userId;
+
+document.getElementById("chatMessages").innerHTML = "";
+
+loadPrivateMessages();
+
+}
+
+function loadPrivateMessages(){
+
+let currentUser = firebase.auth().currentUser;
+
+if(!currentUser || !currentChatUser) return;
+
+let chatId = [currentUser.uid, currentChatUser].sort().join("_");
+
+db.collection("privateMessages")
+.where("chatId","==",chatId)
+.orderBy("time")
+.onSnapshot((snapshot)=>{
+
+let chat = document.getElementById("chatMessages");
+
+chat.innerHTML="";
+
+snapshot.forEach((doc)=>{
+
+let msg = doc.data();
+
+chat.innerHTML += `
+<div class="message">
+<b>${msg.username}</b><br>
+${msg.text}
+</div>
+`;
+
+});
+
+chat.scrollTop = chat.scrollHeight;
 
 });
 

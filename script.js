@@ -225,7 +225,7 @@ document.getElementById("loginPage").style.display="none";
 document.querySelector("main").style.display="block";
 
 loadProfile();
-loadMessages();
+loadInbox();
   
 }else{
 

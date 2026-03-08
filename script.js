@@ -217,7 +217,8 @@ if(user){
 document.getElementById("loginPage").style.display="none";
 document.querySelector("main").style.display="block";
 
-loadProfile(); 
+loadProfile();
+loadMessages();
   
 }else{
 
@@ -247,6 +248,55 @@ document.getElementById("profileUsername").innerText = data.username || "usernam
 document.getElementById("profileName").innerText = data.name || "name";
 
 }
+
+});
+
+}
+
+function sendMessage(){
+
+let text = document.getElementById("chatText").value;
+
+if(!text) return;
+
+let user = firebase.auth().currentUser;
+
+if(!user) return;
+
+let username = document.getElementById("profileUsername").innerText;
+
+db.collection("messages").add({
+
+username: username,
+text: text,
+time: Date.now()
+
+});
+
+document.getElementById("chatText").value="";
+
+}
+
+function loadMessages(){
+
+db.collection("messages")
+.orderBy("time")
+.onSnapshot((snapshot)=>{
+
+let chat = document.getElementById("chatMessages");
+chat.innerHTML="";
+
+snapshot.forEach((doc)=>{
+
+let msg = doc.data();
+
+chat.innerHTML += `
+<div class="message">
+<b>${msg.username}</b>: ${msg.text}
+</div>
+`;
+
+});
 
 });
 

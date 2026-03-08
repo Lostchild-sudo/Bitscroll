@@ -405,3 +405,52 @@ chat.scrollTop = chat.scrollHeight;
 });
 
 }
+
+function loadInbox(){
+
+let user = firebase.auth().currentUser;
+
+if(!user) return;
+
+db.collection("privateMessages")
+.where("chatId","array-contains",user.uid)
+.get()
+.then((snapshot)=>{
+
+let inbox = document.getElementById("chatInbox");
+
+inbox.innerHTML="";
+
+let chats = {};
+
+snapshot.forEach((doc)=>{
+
+let msg = doc.data();
+
+let ids = msg.chatId.split("_");
+
+let otherUser = ids[0] === user.uid ? ids[1] : ids[0];
+
+chats[otherUser] = true;
+
+});
+
+for(let id in chats){
+
+db.collection("users").doc(id).get().then((doc)=>{
+
+let data = doc.data();
+
+inbox.innerHTML += `
+<div class="inboxUser" onclick="openChat('${id}','${data.username}')">
+${data.username}
+</div>
+`;
+
+});
+
+}
+
+});
+
+}

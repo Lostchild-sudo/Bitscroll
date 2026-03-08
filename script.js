@@ -304,3 +304,38 @@ chat.scrollTop = chat.scrollHeight;
 });
 
 }
+
+function searchUsers(){
+
+let text = document.getElementById("userSearch").value.toLowerCase();
+
+let results = document.getElementById("searchResults");
+
+if(text.length < 1){
+results.innerHTML="";
+return;
+}
+
+db.collection("users").get().then((snapshot)=>{
+
+results.innerHTML="";
+
+snapshot.forEach((doc)=>{
+
+let user = doc.data();
+
+if(user.username.toLowerCase().includes(text)){
+
+results.innerHTML += `
+<div class="search-user">
+${user.username}
+</div>
+`;
+
+}
+
+});
+
+});
+
+}

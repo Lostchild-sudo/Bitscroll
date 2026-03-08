@@ -89,13 +89,15 @@ object-fit:cover;
 .bottom-nav{
 position:fixed;
 bottom:0;
+left:0;
 width:100%;
 background:white;
 display:flex;
 justify-content:space-around;
+align-items:center;
 padding:10px 0;
 border-top:1px solid #ddd;
-font-size:22px;
+z-index:1000;
 }
 
 button{
@@ -168,4 +170,8 @@ border:none;
 background:black;
 color:white;
 border-radius:6px;
+}
+
+main{
+padding-bottom:70px;
 }

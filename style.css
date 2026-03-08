@@ -172,6 +172,14 @@ color:white;
 border-radius:6px;
 }
 
+#chatHeader{
+padding:10px;
+font-weight:bold;
+border-bottom:1px solid #ddd;
+margin-bottom:10px;
+background:white;
+}
+
 main{
 padding-bottom:70px;
 }

@@ -292,11 +292,14 @@ let msg = doc.data();
 
 chat.innerHTML += `
 <div class="message">
-<b>${msg.username}</b>: ${msg.text}
+<b>${msg.username}</b><br>
+${msg.text}
 </div>
 `;
 
 });
+
+chat.scrollTop = chat.scrollHeight;
 
 });
 

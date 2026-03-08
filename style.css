@@ -211,3 +211,23 @@ cursor:pointer;
 .search-user:hover{
 background:#f5f5f5;
 }
+
+.myMessage{
+background:#0084ff;
+color:white;
+padding:8px 12px;
+margin:6px 0;
+border-radius:12px;
+max-width:60%;
+margin-left:auto;
+}
+
+.otherMessage{
+background:#e4e6eb;
+color:black;
+padding:8px 12px;
+margin:6px 0;
+border-radius:12px;
+max-width:60%;
+margin-right:auto;
+}

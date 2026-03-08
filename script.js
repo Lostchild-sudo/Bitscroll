@@ -385,13 +385,16 @@ snapshot.forEach((doc)=>{
 
 let msg = doc.data();
 
+let currentUser = firebase.auth().currentUser;
+
+let messageClass = msg.username === document.getElementById("profileUsername").innerText ? "myMessage" : "otherMessage";
+
 chat.innerHTML += `
-<div class="message">
-<b>${msg.username}</b><br>
+<div class="${messageClass}">
 ${msg.text}
 </div>
 `;
-
+  
 });
 
 chat.scrollTop = chat.scrollHeight;

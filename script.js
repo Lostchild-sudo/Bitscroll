@@ -389,9 +389,12 @@ let currentUser = firebase.auth().currentUser;
 
 let messageClass = msg.username === document.getElementById("profileUsername").innerText ? "myMessage" : "otherMessage";
 
+let time = new Date(msg.time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
 chat.innerHTML += `
 <div class="${messageClass}">
 ${msg.text}
+<div class="messageTime">${time}</div>
 </div>
 `;
   

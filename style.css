@@ -131,3 +131,41 @@ padding:10px;
 #loginPage h2{
 margin-bottom:20px;
 }
+
+#chatMessages{
+height:400px;
+overflow-y:auto;
+padding:10px;
+border:1px solid #ddd;
+margin-bottom:10px;
+background:#fafafa;
+}
+
+.message{
+background:white;
+padding:8px 12px;
+margin:6px 0;
+border-radius:10px;
+max-width:70%;
+box-shadow:0 1px 3px rgba(0,0,0,0.1);
+}
+
+.chat-input{
+display:flex;
+gap:5px;
+}
+
+#chatText{
+flex:1;
+padding:8px;
+border:1px solid #ccc;
+border-radius:6px;
+}
+
+.chat-input button{
+padding:8px 12px;
+border:none;
+background:black;
+color:white;
+border-radius:6px;
+}

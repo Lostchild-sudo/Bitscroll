@@ -167,13 +167,18 @@ loadPosts();
 
 function signup(){
 
-let email=document.getElementById("email").value;
-let password=document.getElementById("password").value;
+let email = document.getElementById("signupEmail").value;
+let password = document.getElementById("signupPassword").value;
 
-firebase.auth().createUserWithEmailAndPassword(email,password)
+if(password.length < 8){
+alert("Password must be at least 8 characters");
+return;
+}
 
-.then(()=>{
-alert("Account created");
+firebase.auth().createUserWithEmailAndPassword(email, password)
+
+.then((userCredential)=>{
+console.log("Account created");
 })
 
 .catch((error)=>{

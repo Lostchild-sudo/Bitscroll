@@ -356,6 +356,8 @@ function openChat(userId, username){
 
 currentChatUser = userId;
 
+document.getElementById("chatHeader").innerText = "Chat with " + username;
+
 document.getElementById("chatMessages").innerHTML = "";
 
 loadPrivateMessages();

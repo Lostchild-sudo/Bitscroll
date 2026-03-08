@@ -238,3 +238,18 @@ margin-top:4px;
 opacity:0.6;
 text-align:right;
 }
+
+#chatInbox{
+border-bottom:1px solid #ddd;
+margin-bottom:10px;
+}
+
+.inboxUser{
+padding:8px;
+border-bottom:1px solid #eee;
+cursor:pointer;
+}
+
+.inboxUser:hover{
+background:#f5f5f5;
+}

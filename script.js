@@ -84,6 +84,11 @@ async function editProfile(){
 let newUsername = prompt("Enter your username:");
 let newName = prompt("Enter your name:");
 
+if(!newUsername && !newName){
+alert("Nothing changed");
+return;
+}
+
 let user = firebase.auth().currentUser;
 
 if(!user){
@@ -93,17 +98,26 @@ return;
 
 let uid = user.uid;
 
-await db.collection("users").doc(uid).set({
+let data = {
+username: newUsername ? newUsername : "username",
+name: newName ? newName : "name"
+};
 
-username: newUsername || "username",
-name: newName || "name"
+try{
 
-});
+await db.collection("users").doc(uid).set(data);
 
-document.getElementById("profileUsername").innerText = newUsername || "username";
-document.getElementById("profileName").innerText = newName || "name";
+document.getElementById("profileUsername").innerText = data.username;
+document.getElementById("profileName").innerText = data.name;
 
-alert("Profile saved");
+alert("Profile updated!");
+
+}catch(error){
+
+console.log(error);
+alert("Error saving profile");
+
+}
 
 }
 

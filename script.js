@@ -263,9 +263,12 @@ if(!text) return;
 
 let user = firebase.auth().currentUser;
 
-if(!user) return;
-
 let username = document.getElementById("profileUsername").innerText;
+
+if(!currentChatUser){
+alert("Select a user to chat with first");
+return;
+}
 
 let chatId = [user.uid, currentChatUser].sort().join("_");
 

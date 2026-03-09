@@ -7,11 +7,11 @@ overflow-x:hidden;
 
 main{
 padding:15px;
-padding-bottom:70px;
+padding-bottom:90px;
 }
 
 section{
-min-height:100vh;
+min-height:calc(100vh - 60px);
 }
 
 .profile-top{
@@ -100,7 +100,7 @@ justify-content:space-around;
 align-items:center;
 padding:10px 0;
 border-top:1px solid #ddd;
-z-index:1000;
+z-index:9999;
 }
 
 button{

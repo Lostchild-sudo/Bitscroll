@@ -93,6 +93,122 @@
 <section id="profilePage" style="display:none">
 
 <div class="profile-top">
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Bitscroll</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="style.css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+
+
+<body>
+
+
+<!-- LOGIN PAGE -->
+
+<section id="loginPage">
+
+<h2>Login to Bitscroll</h2>
+
+<input type="email" id="email" placeholder="Email">
+
+<input type="password" id="password" placeholder="Password">
+
+<button onclick="signup()">Sign Up</button>
+
+<button onclick="login()">Login</button>
+
+</section>
+
+
+
+<main style="display:none">
+
+
+<!-- HOME PAGE -->
+
+<section id="homePage">
+
+<h2>Bitscroll Feed</h2>
+
+<div id="feedPosts"></div>
+
+</section>
+
+
+
+<!-- SEARCH PAGE -->
+
+<section id="searchPage" style="display:none">
+
+<h2>Search</h2>
+
+<input type="text" placeholder="Search users" id="searchInput" onkeyup="searchUsers()">
+
+<div id="searchResults"></div>
+
+</section>
+
+
+
+<!-- POST PAGE -->
+
+<section id="postPage" style="display:none">
+
+<h2>Create Post</h2>
+
+<input type="file" id="postImage">
+
+<button onclick="uploadPost()">Upload</button>
+
+</section>
+
+
+
+<!-- CHAT PAGE -->
+
+<section id="chatPage" style="display:none">
+
+<h2>Chats</h2>
+
+<div id="chatInbox"></div>
+
+<div class="chat-search">
+
+<input type="text" id="userSearch" placeholder="Search users..." onkeyup="searchUsers()">
+
+<div id="chatUserResults"></div>
+
+</div>
+
+<div id="chatHeader">Select a user to start chatting</div>
+
+<div id="chatMessages"></div>
+
+<div class="chat-input">
+
+<input type="text" id="chatText" placeholder="Type a message...">
+
+<button onclick="sendMessage()">Send</button>
+
+</div>
+
+</section>
+
+
+
+<!-- PROFILE PAGE -->
+
+<section id="profilePage" style="display:none">
+
+<div class="profile-top">
 
 <img src="https://picsum.photos/80" class="profile-pic">
 
@@ -135,29 +251,38 @@
 </div>
 
 
+
 <div class="profile-buttons">
 
 <button onclick="editProfile()">Edit Profile</button>
+
 <button onclick="shareProfile()">Share Profile</button>
+
 <button onclick="logout()">Logout</button>
 
 </div>
 
 
+
 <div class="profile-tabs">
 
 <i class="fa-solid fa-table-cells"></i>
+
 <i class="fa-solid fa-video"></i>
+
 <i class="fa-regular fa-bookmark"></i>
 
 </div>
+
 
 
 <div id="profilePosts" class="post-grid"></div>
 
 </section>
 
+
 </main>
+
 
 
 <!-- BOTTOM NAVIGATION -->
@@ -176,6 +301,10 @@
 
 </nav>
 
+
+
+<!-- FIREBASE -->
+
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
@@ -185,6 +314,7 @@
 <script src="firebase.js"></script>
 
 <script src="script.js"></script>
+
 
 </body>
 </html>

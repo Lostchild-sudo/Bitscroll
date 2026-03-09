@@ -444,7 +444,7 @@ const feed = document.getElementById("feedPosts");
 feed.innerHTML = "Loading posts...";
 
 db.collection("posts")
-.orderBy("createdAt","desc")
+.orderBy("time","desc")
 .onSnapshot(snapshot => {
 
 feed.innerHTML = "";
@@ -458,9 +458,10 @@ const postDiv = document.createElement("div");
 postDiv.className = "feedPost";
 
 postDiv.innerHTML = `
-<img src="${post.imageUrl}" class="feedImage">
-<div class="feedInfo">
-<b>${post.username}</b>
+<div class="postUser">${post.username}</div>
+<img src="${post.image}">
+<div class="postActions">
+❤️ 💬 🔗
 </div>
 `;
 
@@ -471,3 +472,5 @@ feed.appendChild(postDiv);
 });
 
 }
+
+showPage("homePage");

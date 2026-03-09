@@ -43,40 +43,44 @@ results.innerHTML+=`
 
 }
 
+function uploadPost(){
 
-async function uploadPost(){
+let fileInput = document.getElementById("postFile");
+let file = fileInput.files[0];
 
-let fileInput = document.getElementById("postImage");
-
-if(fileInput.files.length === 0){
-alert("Select image first");
+if(!file){
+alert("Select an image first");
 return;
 }
 
-let file = fileInput.files[0];
+let user = firebase.auth().currentUser;
 
-let imageURL = URL.createObjectURL(file);
+let username = document.getElementById("profileUsername").innerText;
 
-try{
+let reader = new FileReader();
 
-await db.collection("posts").add({
+reader.onload = function(e){
 
-username:"username",
-image:imageURL,
-time:Date.now()
+let imageUrl = e.target.result;
+
+db.collection("posts").add({
+
+image: imageUrl,
+uid: user.uid,
+username: username,
+time: Date.now()
+
+}).then(()=>{
+
+alert("Post uploaded");
+
+fileInput.value="";
 
 });
 
-alert("Post saved to database");
+};
 
-loadPosts();
-
-}catch(error){
-
-console.log(error);
-alert("Error uploading post");
-
-}
+reader.readAsDataURL(file);
 
 }
 
@@ -133,28 +137,27 @@ url:window.location.href
 
 }
 
-function loadPosts(){
+function loadMyPosts(){
 
-db.collection("posts").orderBy("time","desc").get().then((snapshot)=>{
+let user = firebase.auth().currentUser;
 
-let feed = document.getElementById("feedPosts");
-let profile = document.getElementById("profilePosts");
+if(!user) return;
 
-feed.innerHTML="";
-profile.innerHTML="";
+db.collection("posts")
+.where("uid","==",user.uid)
+.orderBy("time","desc")
+.onSnapshot((snapshot)=>{
+
+let grid = document.getElementById("profilePosts");
+
+grid.innerHTML="";
 
 snapshot.forEach((doc)=>{
 
 let post = doc.data();
 
-feed.innerHTML += `
-<div>
-<img src="${post.image}" style="width:100%">
-</div>
-`;
-
-profile.innerHTML += `
-<img src="${post.image}">
+grid.innerHTML += `
+<img src="${post.image}" class="profilePost">
 `;
 
 });

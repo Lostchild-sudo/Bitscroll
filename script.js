@@ -1,51 +1,69 @@
 let currentChatUser = null;
 
+
+/* PAGE NAVIGATION */
+
 function showPage(pageId){
 
-let pages=document.querySelectorAll("main section");
+let pages = document.querySelectorAll("main section");
 
 pages.forEach(function(page){
-page.style.display="none";
+page.style.display = "none";
 });
 
-document.getElementById(pageId).style.display="block";
+document.getElementById(pageId).style.display = "block";
 
 }
 
 
-let users=[
-{username:"user_one"},
-{username:"cool_guy"},
-{username:"travel_world"},
-{username:"tech_master"}
-];
 
+/* SEARCH USERS */
 
 function searchUsers(){
 
-let input=document.getElementById("searchInput").value.toLowerCase();
+let text = document.getElementById("userSearch")?.value.toLowerCase() ||
+           document.getElementById("searchInput")?.value.toLowerCase();
 
-let results=document.getElementById("searchResults");
+let results =
+document.getElementById("chatUserResults") ||
+document.getElementById("searchResults");
 
-results.innerHTML="";
+if(!text || text.length < 1){
+results.innerHTML = "";
+return;
+}
 
-users.forEach(function(user){
+db.collection("users").get().then((snapshot)=>{
 
-if(user.username.includes(input)){
+results.innerHTML = "";
 
-results.innerHTML+=`
-<div>${user.username}</div>
+snapshot.forEach((doc)=>{
+
+let user = doc.data();
+
+if(user.username && user.username.toLowerCase().includes(text)){
+
+results.innerHTML += `
+<div class="search-user" onclick="openChat('${doc.id}','${user.username}')">
+${user.username}
+</div>
 `;
 
 }
 
 });
 
+});
+
 }
+
+
+
+/* UPLOAD POST */
 
 function uploadPost(){
 
-let fileInput = document.getElementById("postFile");
+let fileInput = document.getElementById("postImage");
 let file = fileInput.files[0];
 
 if(!file){
@@ -54,7 +72,6 @@ return;
 }
 
 let user = firebase.auth().currentUser;
-
 let username = document.getElementById("profileUsername").innerText;
 
 let reader = new FileReader();
@@ -73,7 +90,6 @@ time: Date.now()
 }).then(()=>{
 
 alert("Post uploaded");
-
 fileInput.value="";
 
 });
@@ -84,6 +100,9 @@ reader.readAsDataURL(file);
 
 }
 
+
+
+/* PROFILE EDIT */
 
 async function editProfile(){
 
@@ -96,20 +115,14 @@ return;
 }
 
 let user = firebase.auth().currentUser;
-
-if(!user){
-alert("User not logged in");
-return;
-}
+if(!user) return;
 
 let uid = user.uid;
 
 let data = {
-username: newUsername ? newUsername : "username",
-name: newName ? newName : "name"
+username: newUsername || "username",
+name: newName || "name"
 };
-
-try{
 
 await db.collection("users").doc(uid).set(data);
 
@@ -118,14 +131,11 @@ document.getElementById("profileName").innerText = data.name;
 
 alert("Profile updated!");
 
-}catch(error){
-
-console.log(error);
-alert("Error saving profile");
-
 }
 
-}
+
+
+/* SHARE PROFILE */
 
 function shareProfile(){
 
@@ -137,10 +147,13 @@ url:window.location.href
 
 }
 
+
+
+/* LOAD USER POSTS */
+
 function loadMyPosts(){
 
 let user = firebase.auth().currentUser;
-
 if(!user) return;
 
 db.collection("posts")
@@ -150,7 +163,7 @@ db.collection("posts")
 
 let grid = document.getElementById("profilePosts");
 
-grid.innerHTML="";
+grid.innerHTML = "";
 
 snapshot.forEach((doc)=>{
 
@@ -166,42 +179,43 @@ grid.innerHTML += `
 
 }
 
-loadPosts();
+
+
+/* AUTHENTICATION */
 
 function signup(){
 
-let email = document.getElementById("signupEmail").value;
-let password = document.getElementById("signupPassword").value;
+let email = document.getElementById("email").value;
+let password = document.getElementById("password").value;
 
 if(password.length < 8){
 alert("Password must be at least 8 characters");
 return;
 }
 
-firebase.auth().createUserWithEmailAndPassword(email, password)
+firebase.auth()
+.createUserWithEmailAndPassword(email,password)
 
-.then((userCredential)=>{
-console.log("Account created");
-})
+.then((cred)=>{
 
-.catch((error)=>{
-alert(error.message);
+db.collection("users").doc(cred.user.uid).set({
+username:"user_" + Math.floor(Math.random()*10000),
+name:"New User"
+});
+
 });
 
 }
+
 
 
 function login(){
 
-let email=document.getElementById("email").value;
-let password=document.getElementById("password").value;
+let email = document.getElementById("email").value;
+let password = document.getElementById("password").value;
 
-firebase.auth().signInWithEmailAndPassword(email,password)
-
-.then(()=>{
-document.getElementById("loginPage").style.display="none";
-document.querySelector("main").style.display="block";
-})
+firebase.auth()
+.signInWithEmailAndPassword(email,password)
 
 .catch((error)=>{
 alert(error.message);
@@ -209,31 +223,31 @@ alert(error.message);
 
 }
 
+
+
 function logout(){
 
-firebase.auth().signOut().then(()=>{
-
-alert("Logged out");
-
-});
+firebase.auth().signOut();
 
 }
+
+
+
+/* AUTH STATE */
 
 firebase.auth().onAuthStateChanged(function(user){
 
 if(user){
 
-// user already logged in
 document.getElementById("loginPage").style.display="none";
 document.querySelector("main").style.display="block";
 
 loadProfile();
 loadInbox();
 loadMyPosts();
-  
+
 }else{
 
-// user not logged in
 document.getElementById("loginPage").style.display="flex";
 document.querySelector("main").style.display="none";
 
@@ -241,22 +255,29 @@ document.querySelector("main").style.display="none";
 
 });
 
+
+
+/* LOAD PROFILE */
+
 function loadProfile(){
 
 let user = firebase.auth().currentUser;
-
 if(!user) return;
 
-let uid = user.uid;
-
-db.collection("users").doc(uid).get().then((doc)=>{
+db.collection("users")
+.doc(user.uid)
+.get()
+.then((doc)=>{
 
 if(doc.exists){
 
 let data = doc.data();
 
-document.getElementById("profileUsername").innerText = data.username || "username";
-document.getElementById("profileName").innerText = data.name || "name";
+document.getElementById("profileUsername").innerText =
+data.username || "username";
+
+document.getElementById("profileName").innerText =
+data.name || "name";
 
 }
 
@@ -264,27 +285,42 @@ document.getElementById("profileName").innerText = data.name || "name";
 
 }
 
+
+
+/* CHAT */
+
+function openChat(userId, username){
+
+currentChatUser = userId;
+
+document.getElementById("chatHeader").innerText =
+"Chat with " + username;
+
+document.getElementById("chatMessages").innerHTML = "";
+
+loadPrivateMessages();
+
+}
+
+
+
 function sendMessage(){
 
 let text = document.getElementById("chatText").value;
-
 if(!text) return;
 
 let user = firebase.auth().currentUser;
-
-let username = document.getElementById("profileUsername").innerText;
-
 if(!currentChatUser){
-alert("Select a user to chat with first");
+alert("Select a user first");
 return;
 }
 
-let chatId = [user.uid, currentChatUser].sort().join("_");
+let chatId = [user.uid,currentChatUser].sort().join("_");
 
 db.collection("privateMessages").add({
 
 chatId: chatId,
-username: username,
+sender: user.uid,
 text: text,
 time: Date.now()
 
@@ -294,87 +330,14 @@ document.getElementById("chatText").value="";
 
 }
 
-function loadMessages(){
 
-db.collection("messages")
-.orderBy("time")
-.onSnapshot((snapshot)=>{
-
-let chat = document.getElementById("chatMessages");
-chat.innerHTML="";
-
-snapshot.forEach((doc)=>{
-
-let msg = doc.data();
-
-chat.innerHTML += `
-<div class="message">
-<b>${msg.username}</b><br>
-${msg.text}
-</div>
-`;
-
-});
-
-chat.scrollTop = chat.scrollHeight;
-
-});
-
-}
-
-function searchUsers(){
-
-let text = document.getElementById("userSearch").value.toLowerCase();
-
-let results = document.getElementById("searchResults");
-
-if(text.length < 1){
-results.innerHTML="";
-return;
-}
-
-db.collection("users").get().then((snapshot)=>{
-
-results.innerHTML="";
-
-snapshot.forEach((doc)=>{
-
-let user = doc.data();
-
-if(user.username.toLowerCase().includes(text)){
-
-results.innerHTML += `
-<div class="search-user" onclick="openChat('${doc.id}','${user.username}')">
-${user.username}
-</div>
-`;
-}
-
-});
-
-});
-
-}
-
-function openChat(userId, username){
-
-currentChatUser = userId;
-
-document.getElementById("chatHeader").innerText = "Chat with " + username;
-
-document.getElementById("chatMessages").innerHTML = "";
-
-loadPrivateMessages();
-
-}
 
 function loadPrivateMessages(){
 
-let currentUser = firebase.auth().currentUser;
+let user = firebase.auth().currentUser;
+if(!user || !currentChatUser) return;
 
-if(!currentUser || !currentChatUser) return;
-
-let chatId = [currentUser.uid, currentChatUser].sort().join("_");
+let chatId = [user.uid,currentChatUser].sort().join("_");
 
 db.collection("privateMessages")
 .where("chatId","==",chatId)
@@ -389,19 +352,20 @@ snapshot.forEach((doc)=>{
 
 let msg = doc.data();
 
-let currentUser = firebase.auth().currentUser;
+let cls = msg.sender === user.uid ?
+"myMessage" : "otherMessage";
 
-let messageClass = msg.username === document.getElementById("profileUsername").innerText ? "myMessage" : "otherMessage";
-
-let time = new Date(msg.time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+let time =
+new Date(msg.time)
+.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
 
 chat.innerHTML += `
-<div class="${messageClass}">
+<div class="${cls}">
 ${msg.text}
 <div class="messageTime">${time}</div>
 </div>
 `;
-  
+
 });
 
 chat.scrollTop = chat.scrollHeight;
@@ -410,14 +374,16 @@ chat.scrollTop = chat.scrollHeight;
 
 }
 
+
+
+/* CHAT INBOX */
+
 function loadInbox(){
 
 let user = firebase.auth().currentUser;
-
 if(!user) return;
 
 db.collection("privateMessages")
-.where("chatId","array-contains",user.uid)
 .get()
 .then((snapshot)=>{
 
@@ -431,22 +397,30 @@ snapshot.forEach((doc)=>{
 
 let msg = doc.data();
 
+if(msg.chatId.includes(user.uid)){
+
 let ids = msg.chatId.split("_");
 
-let otherUser = ids[0] === user.uid ? ids[1] : ids[0];
+let other = ids[0] === user.uid ? ids[1] : ids[0];
 
-chats[otherUser] = true;
+chats[other] = true;
+
+}
 
 });
 
 for(let id in chats){
 
-db.collection("users").doc(id).get().then((doc)=>{
+db.collection("users")
+.doc(id)
+.get()
+.then((doc)=>{
 
 let data = doc.data();
 
 inbox.innerHTML += `
-<div class="inboxUser" onclick="openChat('${id}','${data.username}')">
+<div class="inboxUser"
+onclick="openChat('${id}','${data.username}')">
 ${data.username}
 </div>
 `;

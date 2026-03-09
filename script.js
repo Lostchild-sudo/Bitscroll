@@ -13,6 +13,10 @@ page.style.display = "none";
 
 document.getElementById(pageId).style.display = "block";
 
+if(pageId === "homePage"){
+loadFeed();
+}
+
 }
 
 
@@ -428,6 +432,41 @@ ${data.username}
 });
 
 }
+
+});
+
+}
+
+function loadFeed(){
+
+const feed = document.getElementById("feedPosts");
+
+feed.innerHTML = "Loading posts...";
+
+db.collection("posts")
+.orderBy("createdAt","desc")
+.onSnapshot(snapshot => {
+
+feed.innerHTML = "";
+
+snapshot.forEach(doc => {
+
+const post = doc.data();
+
+const postDiv = document.createElement("div");
+
+postDiv.className = "feedPost";
+
+postDiv.innerHTML = `
+<img src="${post.imageUrl}" class="feedImage">
+<div class="feedInfo">
+<b>${post.username}</b>
+</div>
+`;
+
+feed.appendChild(postDiv);
+
+});
 
 });
 

@@ -24,6 +24,8 @@ gap:20px;
 width:80px;
 height:80px;
 border-radius:50%;
+border:2px solid #ddd;
+object-fit:cover;
 }
 
 .profile-right{
@@ -284,7 +286,8 @@ overflow:hidden;
 
 .feedPost img{
 width:100%;
-height:auto;
+max-height:400px;
+object-fit:cover;
 }
 
 .feedPost .postUser{
@@ -298,11 +301,6 @@ display:flex;
 gap:10px;
 padding:10px;
 font-size:20px;
-}
-
-.profile-pic{
-border:2px solid #ddd;
-object-fit:cover;
 }
 
 .profile-buttons button:hover{
@@ -322,4 +320,9 @@ font-size:14px;
 
 .postUser{
 font-size:14px;
+}
+
+.feedPost:hover{
+transform:scale(1.01);
+transition:0.2s;
 }

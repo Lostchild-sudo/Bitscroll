@@ -229,6 +229,7 @@ document.querySelector("main").style.display="block";
 
 loadProfile();
 loadInbox();
+loadMyPosts();
   
 }else{
 

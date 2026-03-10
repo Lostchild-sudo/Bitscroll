@@ -539,3 +539,57 @@ alert("Account center coming soon");
 function openBlocked(){
 alert("Blocked users coming soon");
 }
+
+let viewedUserId = null;
+
+async function toggleFollow(){
+
+let currentUser = firebase.auth().currentUser;
+
+if(!currentUser || !viewedUserId) return;
+
+let followRef = db.collection("follows")
+.doc(currentUser.uid + "_" + viewedUserId);
+
+let doc = await followRef.get();
+
+if(doc.exists){
+
+await followRef.delete();
+
+}else{
+
+await followRef.set({
+follower: currentUser.uid,
+following: viewedUserId
+});
+
+}
+
+updateFollowCounts();
+
+}
+
+function updateFollowCounts(){
+
+if(!viewedUserId) return;
+
+db.collection("follows")
+.where("following","==",viewedUserId)
+.get()
+.then(snapshot=>{
+
+document.getElementById("followersCount").innerText = snapshot.size;
+
+});
+
+db.collection("follows")
+.where("follower","==",viewedUserId)
+.get()
+.then(snapshot=>{
+
+document.getElementById("followingCount").innerText = snapshot.size;
+
+});
+
+}

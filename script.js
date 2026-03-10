@@ -171,6 +171,8 @@ let grid = document.getElementById("profilePosts");
 
 grid.innerHTML = "";
 
+let count = 0;
+
 snapshot.forEach((doc)=>{
 
 let post = doc.data();
@@ -179,13 +181,15 @@ grid.innerHTML += `
 <img src="${post.image}" class="profilePost">
 `;
 
+count++;
+
 });
+
+document.getElementById("postCount").innerText = count;
 
 });
 
 }
-
-
 
 /* AUTHENTICATION */
 

@@ -193,6 +193,26 @@
 
 <div id="profilePosts" class="post-grid"></div>
 
+<div id="editProfileModal" class="modal">
+
+<div class="modal-content">
+
+<h3>Edit Profile</h3>
+
+<input id="editName" placeholder="Name">
+
+<textarea id="editBio" placeholder="Bio"></textarea>
+
+<input id="editLink" placeholder="Website link">
+
+<button onclick="saveProfile()">Save</button>
+
+<button onclick="closeEditProfile()">Cancel</button>
+
+</div>
+
+</div>
+
 </section>
 
 
@@ -229,26 +249,6 @@
 <script src="firebase.js"></script>
 
 <script src="script.js"></script>
-
-<div id="editProfileModal" class="modal">
-
-<div class="modal-content">
-
-<h3>Edit Profile</h3>
-
-<input id="editName" placeholder="Name">
-
-<textarea id="editBio" placeholder="Bio"></textarea>
-
-<input id="editLink" placeholder="Website link">
-
-<button onclick="saveProfile()">Save</button>
-
-<button onclick="closeEditProfile()">Cancel</button>
-
-</div>
-
-</div>
 
 </body>
 </html>

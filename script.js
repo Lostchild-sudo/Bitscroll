@@ -474,3 +474,23 @@ feed.appendChild(postDiv);
 });
 
 }
+
+function toggleMenu(){
+
+let menu = document.getElementById("profileMenu");
+
+if(menu.style.display === "block"){
+menu.style.display = "none";
+}else{
+menu.style.display = "block";
+}
+
+}
+
+function openAccountCenter(){
+alert("Account center coming soon");
+}
+
+function openBlocked(){
+alert("Blocked users coming soon");
+}

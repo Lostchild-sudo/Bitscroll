@@ -17,9 +17,11 @@ if(pageId === "homePage"){
 loadFeed();
 }
 
+if(pageId === "profilePage"){
+loadMyPosts();
 }
 
-
+}
 
 /* SEARCH USERS */
 

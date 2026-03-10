@@ -110,36 +110,65 @@ reader.readAsDataURL(file);
 
 /* PROFILE EDIT */
 
-async function editProfile(){
+function editProfile(){
 
-let newUsername = prompt("Enter your username:");
-let newName = prompt("Enter your name:");
-let newBio = prompt("Enter your bio:");
-let newLink = prompt("Enter your link:");
+let modal = document.getElementById("editProfileModal");
+modal.style.display = "flex";
 
 let user = firebase.auth().currentUser;
 if(!user) return;
 
-let uid = user.uid;
+db.collection("users").doc(user.uid).get().then((doc)=>{
 
-let data = {
-username: newUsername || "username",
-name: newName || "name",
-bio: newBio || "",
-link: newLink || ""
-};
+let data = doc.data() || {};
 
-await db.collection("users").doc(uid).set(data);
+document.getElementById("editUsername").value = data.username || "";
+document.getElementById("editName").value = data.name || "";
+document.getElementById("editBio").value = data.bio || "";
+document.getElementById("editLink").value = data.link || "";
 
-document.getElementById("profileUsername").innerText = data.username;
-document.getElementById("profileName").innerText = data.name;
-document.getElementById("profileBio").innerText = data.bio;
+});
+
+}
+
+function saveProfile(){
+
+let user = firebase.auth().currentUser;
+if(!user) return;
+
+let username = document.getElementById("editUsername").value;
+let name = document.getElementById("editName").value;
+let bio = document.getElementById("editBio").value;
+let link = document.getElementById("editLink").value;
+
+db.collection("users").doc(user.uid).update({
+
+username: username,
+name: name,
+bio: bio,
+link: link
+
+}).then(()=>{
+
+document.getElementById("profileUsername").innerText = username;
+document.getElementById("profileName").innerText = name;
+document.getElementById("profileBio").innerText = bio;
 
 let linkEl = document.getElementById("profileLink");
-linkEl.innerText = data.link;
-linkEl.href = data.link;
+linkEl.innerText = link;
+linkEl.href = link;
+
+closeEditProfile();
 
 alert("Profile updated!");
+
+});
+
+}
+
+function closeEditProfile(){
+
+document.getElementById("editProfileModal").style.display = "none";
 
 }
 

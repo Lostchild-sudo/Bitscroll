@@ -109,7 +109,23 @@
 
 <section id="profilePage" style="display:none">
 
-<div class="profile-top">
+<div class="profile-header">
+
+<div id="profileMenu" class="profile-menu">
+
+<div onclick="openAccountCenter()">Account Center</div>
+
+<div onclick="openBlocked()">Blocked Users</div>
+
+<div onclick="logout()">Logout</div>
+
+</div>
+
+<h2>Profile</h2>
+
+<i class="fa-solid fa-bars menu-icon" onclick="toggleMenu()"></i>
+
+</div>
 
 <img src="https://picsum.photos/80" class="profile-pic">
 
@@ -145,9 +161,9 @@
 
 <b id="profileName">name</b>
 
-<p>bio</p>
+<p id="profileBio">bio</p>
 
-<a href="#">bitscroll.app</a>
+<a id="profileLink" href="#" target="_blank">link</a>
 
 </div>
 
@@ -158,8 +174,6 @@
 <button onclick="editProfile()">Edit Profile</button>
 
 <button onclick="shareProfile()">Share Profile</button>
-
-<button onclick="logout()">Logout</button>
 
 </div>
 
@@ -215,6 +229,26 @@
 <script src="firebase.js"></script>
 
 <script src="script.js"></script>
+
+<div id="editProfileModal" class="modal">
+
+<div class="modal-content">
+
+<h3>Edit Profile</h3>
+
+<input id="editName" placeholder="Name">
+
+<textarea id="editBio" placeholder="Bio"></textarea>
+
+<input id="editLink" placeholder="Website link">
+
+<button onclick="saveProfile()">Save</button>
+
+<button onclick="closeEditProfile()">Cancel</button>
+
+</div>
+
+</div>
 
 </body>
 </html>

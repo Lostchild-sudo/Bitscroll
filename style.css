@@ -326,3 +326,14 @@ font-size:14px;
 transform:scale(1.01);
 transition:0.2s;
 }
+
+.profile-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.menu-icon{
+font-size:22px;
+cursor:pointer;
+}

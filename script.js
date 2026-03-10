@@ -112,11 +112,8 @@ async function editProfile(){
 
 let newUsername = prompt("Enter your username:");
 let newName = prompt("Enter your name:");
-
-if(!newUsername && !newName){
-alert("Nothing changed");
-return;
-}
+let newBio = prompt("Enter your bio:");
+let newLink = prompt("Enter your link:");
 
 let user = firebase.auth().currentUser;
 if(!user) return;
@@ -125,19 +122,24 @@ let uid = user.uid;
 
 let data = {
 username: newUsername || "username",
-name: newName || "name"
+name: newName || "name",
+bio: newBio || "",
+link: newLink || ""
 };
 
 await db.collection("users").doc(uid).set(data);
 
 document.getElementById("profileUsername").innerText = data.username;
 document.getElementById("profileName").innerText = data.name;
+document.getElementById("profileBio").innerText = data.bio;
+
+let linkEl = document.getElementById("profileLink");
+linkEl.innerText = data.link;
+linkEl.href = data.link;
 
 alert("Profile updated!");
 
 }
-
-
 
 /* SHARE PROFILE */
 
@@ -284,6 +286,14 @@ data.username || "username";
 
 document.getElementById("profileName").innerText =
 data.name || "name";
+
+document.getElementById("profileBio").innerText =
+data.bio || "bio";
+
+let linkEl = document.getElementById("profileLink");
+
+linkEl.innerText = data.link || "link";
+linkEl.href = data.link || "#";
 
 }
 

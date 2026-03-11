@@ -273,6 +273,8 @@ return;
 
 }
 
+alert("Login successful");
+
 })
 .catch((error)=>{
 alert(error.message);

@@ -239,16 +239,20 @@ firebase.auth()
 
 .then((cred)=>{
 
+cred.user.sendEmailVerification();
+
 db.collection("users").doc(cred.user.uid).set({
 username:"user_" + Math.floor(Math.random()*10000),
 name:"New User"
 });
 
+alert("Verification email sent. Please verify before logging in.");
+
+});
+
 });
 
 }
-
-
 
 function login(){
 
@@ -257,7 +261,16 @@ let password = document.getElementById("password").value;
 
 firebase.auth()
 .signInWithEmailAndPassword(email,password)
+.then((cred)=>{
 
+if(!cred.user.emailVerified){
+
+alert("Please verify your email first.");
+firebase.auth().signOut();
+
+}
+
+})
 .catch((error)=>{
 alert(error.message);
 });

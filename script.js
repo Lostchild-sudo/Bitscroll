@@ -248,8 +248,10 @@ name:"New User"
 
 alert("Verification email sent. Please verify before logging in.");
 
-});
+})
 
+.catch((error)=>{
+alert(error.message);
 });
 
 }

@@ -267,6 +267,7 @@ if(!cred.user.emailVerified){
 
 alert("Please verify your email first.");
 firebase.auth().signOut();
+return;
 
 }
 

@@ -247,3 +247,11 @@ cursor:pointer;
 .profile-menu div:hover{
 background:#f5f5f5;
 }
+
+#loginPage{
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+height:100vh;
+}

@@ -109,33 +109,27 @@
 
 <section id="profilePage" style="display:none">
 
-<div class="profile-header">
+<!-- HEADER -->
 
-<h2>Profile</h2>
+<div class="profileTopBar">
 
-<i class="fa-solid fa-bars menu-icon" onclick="toggleMenu()"></i>
+<h2 id="profileName">JASPREET SINGH</h2>
 
-</div>
-
-<div id="profileMenu" class="profile-menu">
-
-<div onclick="openAccountCenter()">Account Center</div>
-
-<div onclick="openBlocked()">Blocked Users</div>
-
-<div onclick="logout()">Logout</div>
+<i class="fa-solid fa-bars menuIcon" onclick="toggleMenu()"></i>
 
 </div>
 
-<div class="profile-top">
+<!-- PROFILE INFO -->
 
-<img src="https://picsum.photos/80" class="profile-pic">
+<div class="profileInfo">
 
-<div class="profile-top-right">
+<img src="https://picsum.photos/100" class="profilePic">
 
-<h2 id="profileName">Name</h2>
+<div class="profileText">
 
-<div class="profile-stats">
+<p id="profileUsername">th_lostchild__</p>
+
+<div class="statsBox">
 
 <div>
 <b id="postCount">0</b>
@@ -158,43 +152,39 @@
 
 </div>
 
-<p id="profileUsername">@username</p>
+<p id="profileBio">Welcome to my profile 😊</p>
 
-<p id="profileBio">bio</p>
+<a id="profileLink" href="#" target="_blank">
+http://lostchild-sudo.github.io/Bitscroll/
+</a>
 
-<a id="profileLink" href="#" target="_blank">link</a>
+<!-- BUTTONS -->
 
-</div>
-
-
-
-<div class="profile-buttons">
+<div class="profileButtons">
 
 <button onclick="editProfile()">Edit Profile</button>
-
-<button id="followBtn" onclick="toggleFollow()" style="display:none">
-Follow
-</button>
 
 <button onclick="shareProfile()">Share Profile</button>
 
 </div>
 
+<!-- PROFILE ICON TABS -->
 
-
-<div class="profile-tabs">
+<div class="profileTabs">
 
 <i class="fa-solid fa-table-cells"></i>
 
-<i class="fa-solid fa-video"></i>
+<i class="fa-solid fa-circle-play"></i>
+
+<i class="fa-solid fa-headphones"></i>
 
 <i class="fa-regular fa-bookmark"></i>
 
 </div>
 
+<!-- POSTS GRID -->
 
-
-<div id="profilePosts" class="post-grid"></div>
+<div id="profilePosts" class="profileGrid"></div>
 
 <div id="editProfileModal" class="modal">
 
